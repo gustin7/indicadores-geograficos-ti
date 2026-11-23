@@ -1,5 +1,7 @@
 # GEO·TI — Indicadores Geográficos de Empresas de TI
 
+**Site publicado:** <https://gustin7.github.io/indicadores-geograficos-ti/>
+
 Website de apresentação do trabalho acadêmico **Indicadores Geográficos de Empresas do Setor de
 Tecnologia da Informação**, com o aplicativo de mapa desenvolvido no ArcGIS incorporado à página.
 
