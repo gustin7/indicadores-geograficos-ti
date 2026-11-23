@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indicadores Geográficos de Empresas de TI · GEO·TI</title>
+  <meta name="description" content="Levantamento geográfico de empresas do setor de Tecnologia da Informação, com mapa interativo desenvolvido no ArcGIS. Projeto acadêmico de Augusto César, Samuel Maciel, Lucca Casarim e Italo Henrique.">
+  <meta name="theme-color" content="#04070E">
+  <meta name="color-scheme" content="dark">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Indicadores Geográficos de Empresas de TI">
+  <meta property="og:description" content="Explorando a distribuição geográfica de empresas do setor de Tecnologia da Informação por meio de dados e visualização cartográfica.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Indicadores Geográficos de Empresas de TI">
+  <meta name="twitter:description" content="Levantamento geográfico de empresas de TI com mapa interativo no ArcGIS.">
+
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-400-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/plex-sans-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/plex-mono-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Marca que há JS e evita a cortina nas visitas seguintes da mesma sessão.
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try {
+        if (sessionStorage.getItem('geoti:boot') === '1') d.classList.add('boot-seen');
+      } catch (e) {}
+    })();
+  </script>
+  <script src="js/plot.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <!-- Cortina de abertura -->
+  <div class="boot" data-boot aria-hidden="true">
+    <div class="boot__inner">
+      <svg class="boot__mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <rect x="8.5" y="8.5" width="47" height="47" rx="10" stroke="#2A6BFF" stroke-opacity=".7"/>
+        <path d="M32 8v48M8 32h48" stroke="#4FE3FF" stroke-opacity=".22"/>
+        <circle cx="32" cy="32" r="11" stroke="#4FE3FF" stroke-opacity=".55"/>
+        <circle cx="32" cy="32" r="3.4" fill="#4FE3FF"/>
+      </svg>
+      <p class="boot__word">GEO<i>·</i>TI</p>
+      <div class="boot__bar"><span></span></div>
+      <p class="boot__meta">Iniciando plataforma</p>
+    </div>
+  </div>
+
+  <!-- Fundo: grade, brilho e grão -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__grid"></div>
+    <div class="bg__glow"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#apresentacao" aria-label="GEO·TI — ir para a apresentação">
+      <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="2.5" y="2.5" width="27" height="27" rx="6" stroke="currentColor" stroke-opacity=".5"/>
+        <path d="M16 2.5v27M2.5 16h27" stroke="currentColor" stroke-opacity=".16"/>
+        <circle cx="16" cy="16" r="6.5" stroke="#4FE3FF" stroke-opacity=".55"/>
+        <circle cx="16" cy="16" r="2.2" fill="#4FE3FF"/>
+      </svg>
+      <span class="brand__name">GEO<span class="brand__dot">·</span>TI</span>
+      <span class="brand__sep" aria-hidden="true"></span>
+      <span class="brand__sub">Indicadores Geográficos</span>
+    </a>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <a class="nav__link" href="#apresentacao" data-nav="home" aria-current="page">Apresentação</a>
+      <a class="nav__link" href="#mapa" data-nav="map">Mapa</a>
+    </nav>
+
+    <div class="chip" data-state="idle" data-state-chip>
+      <span class="dot" aria-hidden="true"></span>
+      <span data-state-text>ArcGIS · pronto</span>
+    </div>
+  </header>
+
+  <main id="conteudo" tabindex="-1">
+
+    <!-- ============ TELA 1 — APRESENTAÇÃO ============ -->
+    <section class="view view--home" id="apresentacao" data-view="home" aria-labelledby="home-title">
+      <div class="wrap">
+        <div class="hero">
+
+          <div class="hero__copy">
+            <p class="eyebrow reveal" style="--d:0ms">
+              <span class="eyebrow__tick" aria-hidden="true"></span>
+              Projeto acadêmico · Geotecnologia
+            </p>
+
+            <h1 class="hero__title title-reveal" id="home-title" tabindex="-1">
+              <span class="line"><span style="--d:60ms">Indicadores</span></span>
+              <span class="line"><span style="--d:150ms">Geográficos de</span></span>
+              <span class="line"><span style="--d:240ms">Empresas de TI</span></span>
+            </h1>
+
+            <p class="hero__lead reveal" style="--d:420ms">
+              Explorando a distribuição geográfica de empresas do setor de Tecnologia da
+              Informação por meio de dados e visualização cartográfica.
+            </p>
+
+            <p class="hero__body reveal" style="--d:500ms">
+              Este trabalho reúne um levantamento geográfico de empresas que atuam em TI.
+              Com um aplicativo desenvolvido no ArcGIS, as localizações foram identificadas
+              e organizadas para permitir a comparação entre regiões e a leitura da
+              distribuição espacial do setor.
+            </p>
+
+            <div class="hero__actions reveal" style="--d:580ms">
+              <a class="btn btn--primary" href="#mapa" data-go="map">
+                Explorar mapa geográfico
+                <svg class="ico" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M2.5 8h10M9 4.5 12.5 8 9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn btn--ghost" href="https://www.arcgis.com/apps/instant/compare/index.html?appid=ebee2d228dc24e50ac4e30506d478b24" target="_blank" rel="noopener noreferrer">
+                Abrir aplicativo original
+                <svg class="ico" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M5 11 11 5M11 5H6.2M11 5v4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="sr-only">(abre em nova aba)</span>
+              </a>
+            </div>
+
+            <ul class="meta reveal" style="--d:660ms">
+              <li class="meta__item">
+                <span class="meta__k">Fonte</span>
+                <span class="meta__v">ArcGIS Instant Apps · Compare</span>
+              </li>
+              <li class="meta__item">
+                <span class="meta__k">Escopo</span>
+                <span class="meta__v">Empresas do setor de TI</span>
+              </li>
+              <li class="meta__item">
+                <span class="meta__k">Grupo</span>
+                <span class="meta__v">Quatro integrantes</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Painel cartográfico -->
+          <aside class="plot reveal" data-plot style="--d:340ms" aria-hidden="true">
+            <div class="plot__head">
+              <span>Malha · pontos</span>
+              <span>ArcGIS / Compare</span>
+            </div>
+
+            <div class="plot__stage" data-plot-stage>
+              <span class="plot__corner plot__corner--tl" aria-hidden="true"></span>
+              <span class="plot__corner plot__corner--tr" aria-hidden="true"></span>
+              <span class="plot__corner plot__corner--bl" aria-hidden="true"></span>
+              <span class="plot__corner plot__corner--br" aria-hidden="true"></span>
+
+              <div class="plot__inner" data-plot-inner>
+                <svg class="plot__svg" viewBox="0 0 400 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="plotGlow" cx="50%" cy="52%" r="46%">
+                      <stop offset="0%" stop-color="#2A6BFF" stop-opacity=".28"/>
+                      <stop offset="60%" stop-color="#2A6BFF" stop-opacity=".05"/>
+                      <stop offset="100%" stop-color="#2A6BFF" stop-opacity="0"/>
+                    </radialGradient>
+                    <linearGradient id="arcFade" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#4FE3FF" stop-opacity=".55"/>
+                      <stop offset="100%" stop-color="#4FE3FF" stop-opacity=".18"/>
+                    </linearGradient>
+                  </defs>
+
+                  <rect width="400" height="460" fill="url(#plotGlow)"/>
+
+                  <g class="plot__grid">
+                    <path d="M20 0V460M60 0V460M100 0V460M140 0V460M180 0V460M220 0V460M260 0V460M300 0V460M340 0V460M380 0V460"/>
+                    <path d="M0 20H400M0 60H400M0 100H400M0 140H400M0 180H400M0 220H400M0 260H400M0 300H400M0 340H400M0 380H400M0 420H400"/>
+                  </g>
+
+                  <g class="plot__ticks">
+                    <path d="M0 20h7M0 60h7M0 100h7M0 140h7M0 180h7M0 220h7M0 260h7M0 300h7M0 340h7M0 380h7M0 420h7"/>
+                    <path d="M393 20h7M393 60h7M393 100h7M393 140h7M393 180h7M393 220h7M393 260h7M393 300h7M393 340h7M393 380h7M393 420h7"/>
+                  </g>
+
+                  <g class="plot__rings">
+                    <circle cx="198" cy="236" r="56"/>
+                    <circle cx="198" cy="236" r="98"/>
+                    <circle cx="198" cy="236" r="140"/>
+                  </g>
+
+                  <g class="plot__arcs">
+                    <path d="M198 236 Q156 214 118 172"/>
+                    <path d="M198 236 Q250 178 292 148"/>
+                    <path d="M198 236 Q268 258 322 306"/>
+                    <path d="M198 236 Q170 302 146 356"/>
+                    <path d="M198 236 Q236 292 258 330"/>
+                    <path d="M198 236 Q140 268 88 282"/>
+                    <path d="M118 172 Q200 138 292 148"/>
+                    <path d="M292 148 Q286 246 258 330"/>
+                    <path d="M322 306 Q294 322 258 330"/>
+                    <path d="M88 282 Q102 328 146 356"/>
+                  </g>
+
+                  <g class="plot__cross">
+                    <path d="M186 236h24M198 224v24"/>
+                  </g>
+
+                  <g class="plot__nodes">
+                    <g class="node" style="--nd:0s"><circle class="node__hit" cx="198" cy="236" r="12"/><circle class="node__dot" cx="198" cy="236" r="3.4"/><circle class="node__ping" cx="198" cy="236" r="3.4"/></g>
+                    <g class="node" style="--nd:.9s"><circle class="node__hit" cx="118" cy="172" r="10"/><circle class="node__dot" cx="118" cy="172" r="2.8"/><circle class="node__ping" cx="118" cy="172" r="2.8"/></g>
+                    <g class="node" style="--nd:1.8s"><circle class="node__hit" cx="292" cy="148" r="10"/><circle class="node__dot" cx="292" cy="148" r="2.8"/><circle class="node__ping" cx="292" cy="148" r="2.8"/></g>
+                    <g class="node" style="--nd:2.7s"><circle class="node__hit" cx="322" cy="306" r="10"/><circle class="node__dot" cx="322" cy="306" r="2.8"/><circle class="node__ping" cx="322" cy="306" r="2.8"/></g>
+                    <g class="node" style="--nd:1.2s"><circle class="node__hit" cx="146" cy="356" r="10"/><circle class="node__dot" cx="146" cy="356" r="2.8"/><circle class="node__ping" cx="146" cy="356" r="2.8"/></g>
+                    <g class="node" style="--nd:2.1s"><circle class="node__hit" cx="258" cy="330" r="10"/><circle class="node__dot" cx="258" cy="330" r="2.8"/><circle class="node__ping" cx="258" cy="330" r="2.8"/></g>
+                    <g class="node" style="--nd:3s"><circle class="node__hit" cx="88" cy="282" r="10"/><circle class="node__dot" cx="88" cy="282" r="2.8"/><circle class="node__ping" cx="88" cy="282" r="2.8"/></g>
+                  </g>
+
+                  <g class="plot__labels">
+                    <text x="210" y="233">N-01</text>
+                    <text x="106" y="164">N-02</text>
+                    <text x="300" y="141">N-03</text>
+                    <text x="330" y="299">N-04</text>
+                    <text x="154" y="348">N-05</text>
+                    <text x="266" y="323">N-06</text>
+                    <text x="72" y="274">N-07</text>
+                  </g>
+                </svg>
+
+                <canvas class="plot__particles" data-particles aria-hidden="true"></canvas>
+                <div class="plot__sweep" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <div class="plot__foot">
+              <div class="plot__ref">
+                <span class="plot__k">Referência cartográfica</span>
+                <span class="plot__coord" data-coord>23°33′S 46°38′W</span>
+                <span class="plot__city" data-city>São Paulo</span>
+              </div>
+              <div class="plot__legend">
+                <span><i class="legend-dot" aria-hidden="true"></i>ponto</span>
+                <span><i class="legend-line" aria-hidden="true"></i>ligação</span>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+
+      <div class="wrap">
+        <section class="work" aria-labelledby="work-title">
+          <div class="work__grid">
+
+            <div class="work__intro">
+              <p class="eyebrow reveal">
+                <span class="eyebrow__tick" aria-hidden="true"></span>
+                O trabalho
+              </p>
+              <h2 class="work__title reveal" id="work-title">
+                Um levantamento geográfico do setor de TI.
+              </h2>
+              <p class="reveal">
+                O projeto partiu da coleta e organização de empresas do segmento de Tecnologia
+                da Informação e da plotagem de suas localizações em um mapa interativo. A partir
+                dele, é possível observar concentrações, comparar regiões e discutir como o setor
+                se distribui no território.
+              </p>
+              <p class="reveal">
+                O aplicativo foi construído no ArcGIS Instant Apps, no modelo de comparação de
+                camadas, e está incorporado nesta página sem alterações: você navega, aproxima e
+                compara exatamente o mesmo mapa apresentado no início do semestre.
+              </p>
+              <a class="arrowlink reveal" href="#mapa" data-go="map">
+                Ver o mapa do projeto
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <dl class="specs reveal">
+              <div class="spec">
+                <dt>Tema</dt>
+                <dd>Indicadores geográficos de empresas do setor de tecnologia da informação</dd>
+              </div>
+              <div class="spec">
+                <dt>Objetivo</dt>
+                <dd>Visualizar e comparar a distribuição espacial das empresas levantadas</dd>
+              </div>
+              <div class="spec">
+                <dt>Ferramenta</dt>
+                <dd>ArcGIS Instant Apps — comparação de camadas</dd>
+              </div>
+              <div class="spec">
+                <dt>Entrega</dt>
+                <dd>Aplicativo de mapa interativo e esta apresentação</dd>
+              </div>
+            </dl>
+
+          </div>
+
+          <div class="team">
+            <div class="team__head">
+              <div>
+                <p class="eyebrow reveal">
+                  <span class="eyebrow__tick" aria-hidden="true"></span>
+                  Integrantes
+                </p>
+                <h2 class="team__title reveal">Quatro integrantes, um levantamento em comum.</h2>
+              </div>
+              <p class="team__note reveal">
+                Grupo responsável pela coleta dos dados, pela organização das camadas no
+                ArcGIS e pela apresentação do mapa.
+              </p>
+            </div>
+
+            <ul class="team__list">
+              <li class="member reveal" style="--d:0ms">
+                <span class="member__node" aria-hidden="true"></span>
+                <span class="member__init" aria-hidden="true">AC</span>
+                <span class="member__text">
+                  <span class="member__name">Augusto César</span>
+                  <span class="member__idx">01 / 04</span>
+                </span>
+              </li>
+              <li class="member reveal" style="--d:70ms">
+                <span class="member__node" aria-hidden="true"></span>
+                <span class="member__init" aria-hidden="true">SM</span>
+                <span class="member__text">
+                  <span class="member__name">Samuel Maciel</span>
+                  <span class="member__idx">02 / 04</span>
+                </span>
+              </li>
+              <li class="member reveal" style="--d:140ms">
+                <span class="member__node" aria-hidden="true"></span>
+                <span class="member__init" aria-hidden="true">LC</span>
+                <span class="member__text">
+                  <span class="member__name">Lucca Casarim</span>
+                  <span class="member__idx">03 / 04</span>
+                </span>
+              </li>
+              <li class="member reveal" style="--d:210ms">
+                <span class="member__node" aria-hidden="true"></span>
+                <span class="member__init" aria-hidden="true">IH</span>
+                <span class="member__text">
+                  <span class="member__name">Italo Henrique</span>
+                  <span class="member__idx">04 / 04</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <footer class="foot">
+          <span>Trabalho acadêmico · Indicadores geográficos de empresas de TI</span>
+          <span>Mapa: ArcGIS Instant Apps</span>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ============ TELA 2 — MAPA ============ -->
+    <section class="view view--map" id="mapa" data-view="map" aria-labelledby="map-title" aria-hidden="true" inert hidden>
+      <div class="wrap wrap--map">
+
+        <div class="map__top">
+          <div class="map__copy">
+            <a class="back" href="#apresentacao" data-go="home">
+              <span class="back__arw" aria-hidden="true">←</span>
+              Apresentação
+            </a>
+            <p class="eyebrow reveal">
+              <span class="eyebrow__tick" aria-hidden="true"></span>
+              ArcGIS · Comparação de camadas
+            </p>
+            <h1 class="map__title reveal" id="map-title" tabindex="-1">Exploração Geográfica</h1>
+            <p class="map__lead reveal">
+              Navegue pelo mapa, aproxime regiões e use a comparação para observar a localização
+              das empresas de TI levantadas pelo grupo. O aplicativo é o mesmo desenvolvido no
+              início do semestre, incorporado aqui sem modificações.
+            </p>
+            <div class="map__actions reveal">
+              <a class="btn btn--primary btn--sm" href="https://www.arcgis.com/apps/instant/compare/index.html?appid=ebee2d228dc24e50ac4e30506d478b24" target="_blank" rel="noopener noreferrer">
+                Abrir em nova aba
+                <svg class="ico" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M5 11 11 5M11 5H6.2M11 5v4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="sr-only">(abre em nova aba)</span>
+              </a>
+              <a class="btn btn--ghost btn--sm" href="#apresentacao" data-go="home">Voltar à apresentação</a>
+            </div>
+          </div>
+
+          <div class="map__aside">
+            <div class="statuscard reveal" data-state="idle" data-state-card>
+              <span class="dot" aria-hidden="true"></span>
+              <span class="statuscard__body">
+                <span class="statuscard__label" data-state-text>Aguardando o mapa</span>
+                <span class="statuscard__meta">ArcGIS Instant Apps</span>
+              </span>
+            </div>
+            <p class="map__hint reveal">
+              Arraste para navegar, role para aproximar e use a barra do aplicativo para
+              alternar as camadas comparadas.
+            </p>
+          </div>
+        </div>
+
+        <div class="frame reveal" data-frame data-state="loading" style="--d:180ms">
+          <span class="fc fc--tl" aria-hidden="true"></span>
+          <span class="fc fc--tr" aria-hidden="true"></span>
+          <span class="fc fc--bl" aria-hidden="true"></span>
+          <span class="fc fc--br" aria-hidden="true"></span>
+
+          <div class="frame__bar">
+            <span class="frame__label">
+              <span class="dot" aria-hidden="true"></span>
+              Compare · Empresas de TI
+            </span>
+            <span class="frame__tools">
+              <span class="frame__appid" aria-hidden="true">app ebee2d22</span>
+              <button class="frame__btn" type="button" data-fullscreen aria-pressed="false" hidden>
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 2H2v4M10 14h4v-4M14 6V2h-4M2 10v4h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                <span data-fullscreen-label>Tela cheia</span>
+              </button>
+            </span>
+          </div>
+
+          <div class="frame__screen" data-screen>
+
+            <div class="loader" data-loader role="status">
+              <svg class="loader__glyph" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <circle class="loader__ring" cx="32" cy="32" r="27"/>
+                <circle class="loader__ring loader__ring--inner" cx="32" cy="32" r="15"/>
+                <path class="loader__cross" d="M32 2v13M32 49v13M2 32h13M49 32h13"/>
+                <circle class="loader__core" cx="32" cy="32" r="3.2"/>
+              </svg>
+              <p class="loader__title">Carregando aplicativo ArcGIS</p>
+              <p class="loader__sub">conectando ao serviço do mapa…</p>
+              <div class="loader__bar" aria-hidden="true"><span></span></div>
+            </div>
+
+            <div class="fallback" data-fallback hidden>
+              <svg class="fallback__glyph" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <circle cx="24" cy="24" r="19" stroke="#FFB27A" stroke-opacity=".5"/>
+                <path d="M24 14v13" stroke="#FFB27A" stroke-width="1.6" stroke-linecap="round"/>
+                <circle cx="24" cy="32.5" r="1.6" fill="#FFB27A"/>
+              </svg>
+              <p class="fallback__title">O aplicativo não pôde ser incorporado</p>
+              <p class="fallback__text">
+                O navegador ou a rede bloqueou o carregamento do ArcGIS dentro desta página.
+                O mapa continua disponível no endereço original.
+              </p>
+              <div class="fallback__actions">
+                <a class="btn btn--primary btn--sm" href="https://www.arcgis.com/apps/instant/compare/index.html?appid=ebee2d228dc24e50ac4e30506d478b24" target="_blank" rel="noopener noreferrer">
+                  Abrir aplicativo original
+                  <svg class="ico" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M5 11 11 5M11 5H6.2M11 5v4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="sr-only">(abre em nova aba)</span>
+                </a>
+                <button class="btn btn--ghost btn--sm" type="button" data-retry>Tentar novamente</button>
+              </div>
+            </div>
+
+            <!-- iframe do ArcGIS é injetado por js/app.js -->
+          </div>
+
+          <div class="frame__foot">
+            <span class="frame__hint">Fonte: ArcGIS · app oficial do grupo</span>
+            <span class="frame__hint">Se o mapa não carregar, use “Abrir em nova aba”.</span>
+          </div>
+        </div>
+
+        <div class="map__foot">
+          <span>Tela cheia disponível na barra do mapa</span>
+          <span>ArcGIS Online · 2026</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <noscript>
+    <div class="noscript">
+      <p>
+        O JavaScript está desativado neste navegador, então a navegação animada entre as telas
+        não funciona. Todo o conteúdo continua legível e o mapa pode ser aberto direto no
+        ArcGIS:
+      </p>
+      <p>
+        <a href="https://www.arcgis.com/apps/instant/compare/index.html?appid=ebee2d228dc24e50ac4e30506d478b24" target="_blank" rel="noopener noreferrer">
+          Abrir o aplicativo de mapa em nova aba
+        </a>
+      </p>
+    </div>
+  </noscript>
+
+</body>
+</html>
