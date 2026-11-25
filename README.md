@@ -17,13 +17,16 @@ entre elas, rota por hash (`#apresentacao` e `#mapa`) e versão responsiva.
 
 ```text
 /
-├── index.html              # as duas telas, no mesmo documento
+├── index.html              # as três telas, no mesmo documento
 ├── css/
 │   ├── fonts.css           # @font-face das fontes locais
 │   └── style.css           # tokens, layout, componentes e responsivo
 ├── js/
 │   ├── plot.js             # painel cartográfico da capa (canvas + SVG)
 │   └── app.js              # rotas, transições, iframe, status e tela cheia
+├── dados/
+│   ├── empresas_ti_mg.csv  # base do levantamento (fonte do Power BI)
+│   └── tema-geoti.json     # tema do Power BI na paleta do site
 ├── assets/
 │   ├── fonts/              # Archivo, IBM Plex Sans e IBM Plex Mono (subset latin)
 │   └── icons/
@@ -33,6 +36,24 @@ entre elas, rota por hash (`#apresentacao` e `#mapa`) e versão responsiva.
 
 Tudo é estático: HTML5, CSS3 e JavaScript puro, sem build, sem dependências e sem backend.
 As fontes são servidas pelo próprio site, então não há requisição a CDNs de terceiros.
+
+## Painel no Power BI
+
+A terceira tela apresenta o painel analítico e abre o relatório no Power BI. O link fica no
+`index.html` (procure por `app.powerbi.com/groups/me/reports`); trocar o `href` nos dois botões
+atualiza a tela inteira.
+
+- **Base:** `dados/empresas_ti_mg.csv`, com as 20 empresas do mapa (cidade, segmento, porte,
+  salário médio, nota Glassdoor, avaliações e coordenadas).
+- **Relatório:** criado no Power BI sobre essa base, com cartões de indicadores e gráficos por
+  cidade, porte e segmento.
+- **Tema:** `dados/tema-geoti.json` pode ser importado em *Exibição → Temas* para alinhar o
+  relatório à paleta do site.
+- **Incorporação:** a conta institucional bloqueia “Publicar na web”, então o relatório não pode
+  ser embutido em iframe público. A tela mostra a prévia com os números reais e o botão
+  “Abrir painel no Power BI”. Se a instituição liberar a opção, basta trocar a prévia por um
+  `<iframe>` com a URL `view?r=…` gerada por ela.
+
 
 ## Rodar localmente
 

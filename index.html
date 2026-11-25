@@ -77,6 +77,7 @@
     <nav class="nav" aria-label="Navegação principal">
       <a class="nav__link" href="#apresentacao" data-nav="home" aria-current="page">Apresentação</a>
       <a class="nav__link" href="#mapa" data-nav="map">Mapa</a>
+      <a class="nav__link" href="#painel" data-nav="panel">Painel</a>
     </nav>
 
     <div class="chip" data-state="idle" data-state-chip>
@@ -479,6 +480,146 @@
         <div class="map__foot">
           <span>Tela cheia disponível na barra do mapa</span>
           <span>ArcGIS Online · 2026</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ TELA 3 — PAINEL ============ -->
+    <section class="view view--panel" id="painel" data-view="panel" aria-labelledby="panel-title" aria-hidden="true" inert hidden>
+      <div class="wrap wrap--panel">
+
+        <div class="map__top">
+          <div class="map__copy">
+            <a class="back" href="#apresentacao" data-go="home">
+              <span class="back__arw" aria-hidden="true">←</span>
+              Apresentação
+            </a>
+            <p class="eyebrow reveal">
+              <span class="eyebrow__tick" aria-hidden="true"></span>
+              Power BI · Análise dos dados
+            </p>
+            <h1 class="map__title reveal" id="panel-title" tabindex="-1">Painel Analítico</h1>
+            <p class="map__lead reveal">
+              Os mesmos 20 registros do mapa, agora em indicadores: distribuição por cidade e
+              porte, salário médio do cargo de referência e nota Glassdoor. O painel foi
+              construído no Power BI sobre a base do levantamento.
+            </p>
+            <div class="map__actions reveal">
+              <a class="btn btn--primary btn--sm" href="https://app.powerbi.com/groups/me/reports/340b2ff0-18bf-42c1-8635-8ccb8415ba21/320052ccc68ffb6725b6?experience=power-bi" target="_blank" rel="noopener noreferrer">
+                Abrir painel no Power BI
+                <svg class="ico" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M5 11 11 5M11 5H6.2M11 5v4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="sr-only">(abre em nova aba)</span>
+              </a>
+              <a class="btn btn--ghost btn--sm" href="#mapa" data-go="map">Ver o mapa</a>
+            </div>
+          </div>
+
+          <div class="map__aside">
+            <div class="statuscard reveal" data-state="ready">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="statuscard__body">
+                <span class="statuscard__label">Relatório publicado</span>
+                <span class="statuscard__meta">Power BI · Meu workspace</span>
+              </span>
+            </div>
+            <p class="map__hint reveal">
+              A conta institucional não libera a incorporação pública do relatório. O botão abre
+              o painel no Power BI; a prévia abaixo usa os números reais do levantamento.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel reveal" style="--d:140ms" role="group" aria-label="Prévia do painel Power BI com os dados do levantamento">
+          <ul class="kpis">
+            <li class="kpi">
+              <span class="kpi__k">Empresas</span>
+              <span class="kpi__v">20</span>
+              <span class="kpi__s">em 3 cidades de MG</span>
+            </li>
+            <li class="kpi">
+              <span class="kpi__k">Salário médio</span>
+              <span class="kpi__v">R$ 5.400</span>
+              <span class="kpi__s">cargo de referência</span>
+            </li>
+            <li class="kpi">
+              <span class="kpi__k">Nota Glassdoor</span>
+              <span class="kpi__v">3,89</span>
+              <span class="kpi__s">média das 20 empresas</span>
+            </li>
+            <li class="kpi">
+              <span class="kpi__k">Avaliações</span>
+              <span class="kpi__v">17.454</span>
+              <span class="kpi__s">somadas no recorte</span>
+            </li>
+          </ul>
+
+          <div class="charts">
+            <figure class="chart">
+              <figcaption class="chart__t">Empresas por cidade</figcaption>
+              <ul class="bars">
+                <li class="bar" style="--w:100%">
+                  <span class="bar__l">Belo Horizonte</span>
+                  <span class="bar__track"><span class="bar__fill"></span></span>
+                  <span class="bar__v">15</span>
+                </li>
+                <li class="bar" style="--w:27%">
+                  <span class="bar__l">Uberlândia</span>
+                  <span class="bar__track"><span class="bar__fill"></span></span>
+                  <span class="bar__v">4</span>
+                </li>
+                <li class="bar" style="--w:7%">
+                  <span class="bar__l">Betim</span>
+                  <span class="bar__track"><span class="bar__fill"></span></span>
+                  <span class="bar__v">1</span>
+                </li>
+              </ul>
+              <p class="chart__n">75% das empresas estão na capital</p>
+            </figure>
+
+            <figure class="chart">
+              <figcaption class="chart__t">Porte das empresas</figcaption>
+              <div class="donut" role="img" aria-label="11 empresas de médio porte (55%) e 9 de grande porte (45%)"></div>
+              <ul class="legend">
+                <li><i class="lg lg--med" aria-hidden="true"></i>Médio <b>11</b> <span>55%</span></li>
+                <li><i class="lg lg--big" aria-hidden="true"></i>Grande <b>9</b> <span>45%</span></li>
+              </ul>
+            </figure>
+
+            <figure class="chart">
+              <figcaption class="chart__t">Salário médio por segmento</figcaption>
+              <ul class="bars bars--sal">
+                <li class="bar" style="--w:100%">
+                  <span class="bar__l">Desenvolvimento de software</span>
+                  <span class="bar__v">5.625</span>
+                  <span class="bar__track"><span class="bar__fill"></span></span>
+                </li>
+                <li class="bar" style="--w:91%">
+                  <span class="bar__l">Software empresarial</span>
+                  <span class="bar__v">5.146</span>
+                  <span class="bar__track"><span class="bar__fill"></span></span>
+                </li>
+                <li class="bar" style="--w:64%">
+                  <span class="bar__l">Software de gestão</span>
+                  <span class="bar__v">3.611</span>
+                  <span class="bar__track"><span class="bar__fill"></span></span>
+                </li>
+              </ul>
+              <p class="chart__n">segmentos com mais empresas</p>
+            </figure>
+          </div>
+
+          <p class="panel__note">
+            Prévia estática com os números do levantamento · o painel interativo, com filtros e
+            mapas, está no Power BI
+          </p>
+        </div>
+
+        <div class="map__foot">
+          <span>Fonte: Glassdoor · 20 empresas de TI em Minas Gerais</span>
+          <span>Power BI · 2026</span>
         </div>
 
       </div>

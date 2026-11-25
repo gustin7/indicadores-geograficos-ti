@@ -1484,7 +1484,246 @@ main {
   min-height: 0;
 }
 
-/* ---------- 15. Loader --------------------------------------------------- */
+/* ---------- 15. Painel (Power BI) --------------------------------------- */
+.view--panel {
+  padding-block: 20px 0;
+}
+
+.wrap--panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-bottom: 24px;
+}
+
+.panel {
+  display: grid;
+  gap: 14px;
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(42, 107, 255, 0.1), transparent 55%),
+    linear-gradient(180deg, rgba(14, 22, 36, 0.9), rgba(6, 11, 20, 0.92));
+  box-shadow:
+    0 50px 100px -60px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kpi {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.kpi__k {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.kpi__v {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-stretch: 104%;
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #f2f7ff;
+}
+
+.kpi__s {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1.1fr 0.8fr 1fr;
+  gap: 12px;
+}
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(4, 9, 16, 0.35);
+}
+
+.chart__t {
+  font-family: var(--mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.chart__n {
+  margin-top: auto;
+  font-size: 0.6875rem;
+  color: rgba(134, 152, 176, 0.8);
+}
+
+.bars {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr) 34px;
+  align-items: center;
+  gap: 10px;
+}
+
+.bar__l {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: #c7d7ec;
+}
+
+.bar__track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(122, 170, 255, 0.1);
+}
+
+.bar__fill {
+  display: block;
+  width: var(--w, 0%);
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #2a6bff, #4fe3ff);
+  box-shadow: 0 0 12px rgba(79, 227, 255, 0.25);
+}
+
+.bar__v {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  text-align: right;
+  color: #eaf2ff;
+}
+
+.bars--sal .bar {
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "l v"
+    "t t";
+  gap: 6px 10px;
+}
+
+.bars--sal .bar__l {
+  grid-area: l;
+}
+
+.bars--sal .bar__v {
+  grid-area: v;
+}
+
+.bars--sal .bar__track {
+  grid-area: t;
+  height: 5px;
+}
+
+.donut {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  margin: 4px auto 0;
+  border-radius: 50%;
+  background: conic-gradient(#4fe3ff 0 55%, #2a6bff 55% 100%);
+  box-shadow: 0 0 40px -10px rgba(79, 227, 255, 0.35);
+}
+
+.donut::after {
+  content: "";
+  position: absolute;
+  inset: 27%;
+  border-radius: 50%;
+  background: #070d17;
+}
+
+.legend {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  color: #c7d7ec;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend b {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-weight: 500;
+  color: #eaf2ff;
+}
+
+.legend span {
+  width: 38px;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  text-align: right;
+  color: var(--muted);
+}
+
+.lg {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.lg--med {
+  background: #4fe3ff;
+}
+
+.lg--big {
+  background: #2a6bff;
+}
+
+.panel__note {
+  font-family: var(--mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: right;
+  color: rgba(134, 152, 176, 0.75);
+}
+
+/* ---------- 16. Loader --------------------------------------------------- */
 .loader {
   position: absolute;
   inset: 0;
@@ -1781,6 +2020,18 @@ main {
   .frame__screen {
     min-height: clamp(360px, 52vh, 620px);
   }
+
+  .kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .charts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .charts .chart:last-child {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 820px) {
@@ -1865,26 +2116,25 @@ main {
   }
 
   .nav {
-    gap: 14px;
+    gap: 12px;
   }
 
   .nav__link {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
   }
 
   .chip {
-    width: 30px;
-    padding: 0;
-    justify-content: center;
+    display: none;
   }
 
-  .chip [data-state-text] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
+  .view--panel .map__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .view--panel .map__actions .btn {
+    width: 100%;
   }
 
   .hero {
@@ -2105,6 +2355,26 @@ main {
 
   .map__foot {
     padding-bottom: 20px;
+  }
+
+  .charts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .charts .chart:last-child {
+    grid-column: auto;
+  }
+
+  .bar {
+    grid-template-columns: 92px minmax(0, 1fr) 30px;
+  }
+
+  .panel__note {
+    text-align: left;
+  }
+
+  .view--panel {
+    padding-block: 18px 0;
   }
 
   .noscript {

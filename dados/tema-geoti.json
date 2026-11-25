@@ -1,0 +1,153 @@
+{
+  "name": "GEO-TI Dark",
+  "dataColors": [
+    "#2A6BFF",
+    "#4FE3FF",
+    "#7C8CFF",
+    "#FFB27A",
+    "#34D399",
+    "#F472B6",
+    "#A78BFA",
+    "#38BDF8",
+    "#FACC15",
+    "#FB7185"
+  ],
+  "background": "#0E1624",
+  "foreground": "#EAF2FF",
+  "tableAccent": "#2A6BFF",
+  "good": "#34D399",
+  "neutral": "#8698B0",
+  "bad": "#FB7185",
+  "textClasses": {
+    "callout": {
+      "fontSize": 34,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#EAF2FF"
+    },
+    "title": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#EAF2FF"
+    },
+    "header": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#9FB3CC"
+    },
+    "label": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI",
+      "color": "#9FB3CC"
+    }
+  },
+  "visualStyles": {
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#04070E"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#02040A"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#0E1624"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#1B2A40"
+              }
+            },
+            "radius": 6
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#EAF2FF"
+              }
+            },
+            "fontSize": 10,
+            "alignment": "left"
+          }
+        ],
+        "categoryAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#9FB3CC"
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": "#9FB3CC"
+              }
+            }
+          }
+        ],
+        "valueAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#9FB3CC"
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": "#9FB3CC"
+              }
+            },
+            "gridlineColor": {
+              "solid": {
+                "color": "#1B2A40"
+              }
+            }
+          }
+        ],
+        "legend": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#9FB3CC"
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": "#9FB3CC"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

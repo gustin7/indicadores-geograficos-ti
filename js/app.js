@@ -14,7 +14,8 @@
 
   var TITLES = {
     home: 'Indicadores Geográficos de Empresas de TI · GEO·TI',
-    map: 'Exploração Geográfica · GEO·TI'
+    map: 'Exploração Geográfica · GEO·TI',
+    panel: 'Painel Analítico · GEO·TI'
   };
 
   var CHIP_TEXT = {
@@ -34,7 +35,8 @@
   /* ----- elementos ------------------------------------------------------- */
   var views = {
     home: document.querySelector('[data-view="home"]'),
-    map: document.querySelector('[data-view="map"]')
+    map: document.querySelector('[data-view="map"]'),
+    panel: document.querySelector('[data-view="panel"]')
   };
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
   var chips = Array.prototype.slice.call(document.querySelectorAll('[data-state-chip]'));
@@ -109,7 +111,7 @@
     void to.offsetWidth;
     to.classList.add('is-active');
 
-    current = to === views.map ? 'map' : 'home';
+    current = to.getAttribute('data-view') || 'home';
     updateNav();
     document.title = TITLES[current];
 
@@ -156,6 +158,7 @@
     var target = null;
 
     if (hash === '#mapa') target = 'map';
+    else if (hash === '#painel') target = 'panel';
     else if (hash === '' || hash === '#' || hash === '#apresentacao') target = 'home';
 
     // Qualquer outro hash (ex.: #conteudo, do skip link) não troca de tela.
@@ -333,7 +336,7 @@
   }
 
   /* ----- eventos --------------------------------------------------------- */
-  var ROUTES = { '#apresentacao': 'home', '#mapa': 'map' };
+  var ROUTES = { '#apresentacao': 'home', '#mapa': 'map', '#painel': 'panel' };
 
   document.addEventListener('click', function (event) {
     if (event.defaultPrevented || event.button !== 0) return;
