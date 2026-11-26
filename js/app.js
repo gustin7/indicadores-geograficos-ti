@@ -10,7 +10,7 @@
   docEl.classList.add('js');
 
   var APP_URL =
-    'https://www.arcgis.com/apps/instant/compare/index.html?appid=ebee2d228dc24e50ac4e30506d478b24';
+    'https://www.arcgis.com/apps/instant/compare/index.html?appid=3c96e78c51ea4b02afd1189726730085';
 
   var TITLES = {
     home: 'Indicadores Geográficos de Empresas de TI · GEO·TI',

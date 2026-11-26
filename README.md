@@ -8,7 +8,7 @@ Tecnologia da Informação**, com o aplicativo de mapa desenvolvido no ArcGIS in
 - **Tema:** distribuição geográfica de empresas que atuam em TI
 - **Ferramenta:** ArcGIS Instant Apps — modelo *Compare*
 - **Integrantes:** Augusto César, Samuel Maciel, Lucca Casarim e Italo Henrique
-- **Aplicativo original:** <https://www.arcgis.com/apps/instant/compare/index.html?appid=ebee2d228dc24e50ac4e30506d478b24>
+- **Aplicativo original:** <https://www.arcgis.com/apps/instant/compare/index.html?appid=3c96e78c51ea4b02afd1189726730085>
 
 O site tem duas telas — a apresentação do projeto e a exploração do mapa — com transição animada
 entre elas, rota por hash (`#apresentacao` e `#mapa`) e versão responsiva.
