@@ -29,8 +29,9 @@ entre elas, rota por hash (`#apresentacao` e `#mapa`) e versão responsiva.
 │   └── tema-geoti.json     # tema do Power BI na paleta do site
 ├── assets/
 │   ├── fonts/              # Archivo, IBM Plex Sans e IBM Plex Mono (subset latin)
-│   └── icons/
-│       └── favicon.svg
+│   ├── icons/
+│   │   └── favicon.svg
+│   └── img/                # capturas dos seis visuais do Power BI
 └── README.md
 ```
 
@@ -39,20 +40,23 @@ As fontes são servidas pelo próprio site, então não há requisição a CDNs 
 
 ## Painel no Power BI
 
-A terceira tela apresenta o painel analítico e abre o relatório no Power BI. O link fica no
+A terceira tela apresenta o painel analítico: quatro indicadores, os seis gráficos do relatório
+em capturas (clique para ampliar) e o botão que abre o relatório no Power BI. O link fica no
 `index.html` (procure por `app.powerbi.com/groups/me/reports`); trocar o `href` nos dois botões
 atualiza a tela inteira.
 
 - **Base:** `dados/empresas_ti_mg.csv`, com as 20 empresas do mapa (cidade, segmento, porte,
   salário médio, nota Glassdoor, avaliações e coordenadas).
-- **Relatório:** criado no Power BI sobre essa base, com cartões de indicadores e gráficos por
-  cidade, porte e segmento.
+- **Relatório:** criado no Power BI sobre essa base — pizza de empresas por cidade, rosca por
+  porte, nota e avaliações por cidade, salário por cidade e por segmento.
+- **Capturas:** `assets/img/painel-01…06.png`, geradas em modo de foco (1205×828) e exibidas
+  em galeria com lightbox. Para atualizar, basta substituir os arquivos com os mesmos nomes.
 - **Tema:** `dados/tema-geoti.json` pode ser importado em *Exibição → Temas* para alinhar o
   relatório à paleta do site.
 - **Incorporação:** a conta institucional bloqueia “Publicar na web”, então o relatório não pode
-  ser embutido em iframe público. A tela mostra a prévia com os números reais e o botão
-  “Abrir painel no Power BI”. Se a instituição liberar a opção, basta trocar a prévia por um
-  `<iframe>` com a URL `view?r=…` gerada por ela.
+  ser embutido em iframe público. A tela mostra as capturas e o botão “Abrir painel no Power BI”.
+  Se a instituição liberar a opção, troque a galeria por um `<iframe>` com a URL `view?r=…`.
+
 
 
 ## Rodar localmente

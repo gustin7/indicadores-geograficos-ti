@@ -381,6 +381,38 @@
       })
     : null;
 
+  /* ----- ampliar capturas do painel -------------------------------------- */
+  var lightbox = document.getElementById('lightbox');
+
+  if (lightbox && typeof lightbox.showModal === 'function') {
+    var lightboxImg = lightbox.querySelector('img');
+    var lightboxCaption = lightbox.querySelector('figcaption');
+    var lightboxClose = lightbox.querySelector('.lightbox__close');
+
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest ? event.target.closest('.shot__open') : null;
+      if (!link) return;
+
+      var source = link.querySelector('img');
+
+      event.preventDefault();
+      lightboxImg.src = link.getAttribute('href');
+      lightboxImg.alt = source ? source.alt : '';
+      lightboxCaption.textContent = link.getAttribute('data-caption') || '';
+      lightbox.showModal();
+    });
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', function () {
+        lightbox.close();
+      });
+    }
+
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) lightbox.close();
+    });
+  }
+
   /* ----- início ---------------------------------------------------------- */
   function init() {
     setState('idle');
